@@ -1,3 +1,2 @@
-# Bluet
-A simple library to create YAML configurations.
-
+# PrimitiveMapping
+A simple library that abstracts basic serialized data structures. 
