@@ -54,6 +54,14 @@ public interface PrimitiveElement {
     String asString();
 
     /**
+     * Gets this element as a boolean.
+     *
+     * @return true or false depending on the boolean value.
+     * @throws UnsupportedOperationException If this element is not a boolean.
+     */
+    boolean asBoolean();
+
+    /**
      * Gets this element as a byte.
      *
      * @return This element as a byte.
@@ -138,6 +146,13 @@ public interface PrimitiveElement {
      * @return true if this element is a {@link String}, otherwise false.
      */
     boolean isString();
+
+    /**
+     * Checks if this element is a boolean.
+     *
+     * @return true if this element is a boolean, otherwise false.
+     */
+    boolean isBoolean();
 
     /**
      * Checks if this element is a primitive number.

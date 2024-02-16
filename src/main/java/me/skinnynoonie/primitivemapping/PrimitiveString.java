@@ -2,9 +2,21 @@ package me.skinnynoonie.primitivemapping;
 
 public final class PrimitiveString extends AbstractPrimitiveElement {
 
+    public static PrimitiveString of(String str) {
+        if (str == null) {
+            throw new IllegalArgumentException("string can not be null");
+        }
+
+        return new PrimitiveString(str);
+    }
+
+    public static PrimitiveString ofOrElse(String str, String fallback) {
+        return of(str == null ? fallback : str);
+    }
+
     private final String string;
 
-    public PrimitiveString(String string) {
+    private PrimitiveString(String string) {
         this.string = string;
     }
 

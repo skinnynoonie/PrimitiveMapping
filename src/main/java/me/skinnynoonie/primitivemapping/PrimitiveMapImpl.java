@@ -37,7 +37,7 @@ public final class PrimitiveMapImpl extends AbstractPrimitiveElement implements 
     }
 
     @Override
-    public void put(String key, PrimitiveElement value) {
+    public PrimitiveMap put(String key, PrimitiveElement value) {
         if (key == null) {
             throw new IllegalArgumentException("key can not be null");
         }
@@ -47,15 +47,17 @@ public final class PrimitiveMapImpl extends AbstractPrimitiveElement implements 
         }
 
         this.internalMap.put(key, value);
+        return this;
     }
 
     @Override
-    public void delete(String key) {
+    public PrimitiveMap delete(String key) {
         if (key == null) {
             throw new IllegalArgumentException("key can not be null");
         }
 
         this.internalMap.remove(key);
+        return this;
     }
 
     @Override

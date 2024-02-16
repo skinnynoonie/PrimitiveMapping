@@ -34,12 +34,13 @@ public final class PrimitiveListImpl extends AbstractPrimitiveElement implements
     }
 
     @Override
-    public void add(PrimitiveElement element) {
+    public PrimitiveList add(PrimitiveElement element) {
         if (element == null) {
             throw new IllegalArgumentException("element can not be null, use PrimitiveNull instead");
         }
 
         this.internalList.add(element);
+        return this;
     }
 
     @Override

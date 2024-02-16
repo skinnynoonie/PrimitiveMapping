@@ -59,6 +59,11 @@ public abstract class AbstractPrimitiveElement implements PrimitiveElement {
     }
 
     @Override
+    public boolean asBoolean() {
+        throw new UnsupportedOperationException("can not convert element to a boolean");
+    }
+
+    @Override
     public byte asByte() {
         throw new UnsupportedOperationException("can not convert element to a byte");
     }
@@ -105,6 +110,11 @@ public abstract class AbstractPrimitiveElement implements PrimitiveElement {
 
     @Override
     public boolean isString() {
+        return false;
+    }
+
+    @Override
+    public boolean isBoolean() {
         return false;
     }
 

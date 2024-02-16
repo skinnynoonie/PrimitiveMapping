@@ -20,9 +20,10 @@ public interface PrimitiveList extends PrimitiveElement, Iterable<PrimitiveEleme
      * Adds an element to the end of this list.
      *
      * @param element The element to add.
+     * @return This list.
      * @throws IllegalArgumentException If any arguments are null.
      */
-    void add(PrimitiveElement element);
+    PrimitiveList add(PrimitiveElement element);
 
     /**
      * Removes the first instance of the element in this list.

@@ -25,16 +25,18 @@ public interface PrimitiveMap extends PrimitiveElement {
      *
      * @param key The key of used to access the value.
      * @param value The value to add to the map.
+     * @return This map.
      * @throws IllegalArgumentException If any arguments are null.
      */
-    void put(String key, PrimitiveElement value);
+    PrimitiveMap put(String key, PrimitiveElement value);
 
     /**
      * Deletes a key from this map.
      *
      * @param key The key to delete from the map.
+     * @return This map.
      * @throws IllegalArgumentException If any arguments are null.
      */
-    void delete(String key);
+    PrimitiveMap delete(String key);
 
 }
