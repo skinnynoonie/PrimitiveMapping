@@ -1,5 +1,6 @@
 package me.skinnynoonie.primitivemapping;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -34,6 +35,11 @@ public final class PrimitiveMapImpl extends AbstractPrimitiveElement implements 
         }
 
         return Optional.ofNullable(this.internalMap.get(key));
+    }
+
+    @Override
+    public Collection<String> keySet() {
+        return this.internalMap.keySet();
     }
 
     @Override

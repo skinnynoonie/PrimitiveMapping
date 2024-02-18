@@ -1,5 +1,6 @@
 package me.skinnynoonie.primitivemapping;
 
+import java.util.Collection;
 import java.util.Optional;
 
 /**
@@ -19,6 +20,13 @@ public interface PrimitiveMap extends PrimitiveElement {
      * @throws IllegalArgumentException If any arguments are null.
      */
     Optional<PrimitiveElement> get(String key);
+
+    /**
+     * Gets all the keys associated with this map.
+     *
+     * @return The keys in a collection.
+     */
+    Collection<String> keySet();
 
     /**
      * Adds a value to this map.
