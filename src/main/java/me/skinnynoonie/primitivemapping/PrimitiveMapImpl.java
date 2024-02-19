@@ -19,6 +19,11 @@ public final class PrimitiveMapImpl extends AbstractPrimitiveElement implements 
     }
 
     @Override
+    public PrimitiveMap setMetadata(Class<?> metadataClass, Object object) {
+        return (PrimitiveMap) super.setMetadata(metadataClass, object);
+    }
+
+    @Override
     public PrimitiveMap asMap() {
         return this;
     }

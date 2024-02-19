@@ -8,6 +8,9 @@ import java.util.Optional;
  */
 public interface PrimitiveMap extends PrimitiveElement {
 
+    @Override
+    PrimitiveMap setMetadata(Class<?> metadataClass, Object data);
+
     /**
      * Gets the element at with the key.
      * If the key does not exist, an empty Optional will be returned.

@@ -27,7 +27,7 @@ public interface PrimitiveElement {
      * @throws IllegalArgumentException If any arguments are null (including the data argument) or if
      *                                  metadataClass and data's class are not the same.
      */
-    void setMetadata(Class<?> metadataClass, Object data);
+    PrimitiveElement setMetadata(Class<?> metadataClass, Object data);
 
     /**
      * Gets this element as a map.
