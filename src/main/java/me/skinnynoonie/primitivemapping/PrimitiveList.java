@@ -8,7 +8,7 @@ package me.skinnynoonie.primitivemapping;
 public interface PrimitiveList extends PrimitiveElement, Iterable<PrimitiveElement> {
 
     @Override
-    PrimitiveList setMetadata(Class<?> metadataClass, Object data);
+    PrimitiveList addMetadata(Object data);
 
     /**
      * Gets the element at the specified index (starts from 0).

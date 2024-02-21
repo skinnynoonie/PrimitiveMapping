@@ -1,5 +1,7 @@
 package me.skinnynoonie.primitivemapping;
 
+import java.util.Objects;
+
 public final class PrimitiveString extends AbstractPrimitiveElement {
 
     public static PrimitiveString of(String str) {
@@ -63,6 +65,26 @@ public final class PrimitiveString extends AbstractPrimitiveElement {
     @Override
     public String toString() {
         return '"' + this.string + '"';
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (!(other instanceof PrimitiveString)) {
+            return false;
+        }
+
+        PrimitiveString otherCasted = (PrimitiveString) other;
+
+        return Objects.equals(this.string, otherCasted.string);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.string != null ? this.string.hashCode() : 0;
     }
 
 }

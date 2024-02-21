@@ -19,8 +19,8 @@ public final class PrimitiveListImpl extends AbstractPrimitiveElement implements
     }
 
     @Override
-    public PrimitiveList setMetadata(Class<?> metadataClass, Object data) {
-        return (PrimitiveList) super.setMetadata(metadataClass, data);
+    public PrimitiveList addMetadata(Object data) {
+        return (PrimitiveList) super.addMetadata(data);
     }
 
     @Override

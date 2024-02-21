@@ -8,8 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class PrimitiveMapImpl extends AbstractPrimitiveElement implements PrimitiveMap {
 
     public static PrimitiveMap createSynchronized() {
-        Map<String, PrimitiveElement> syncMap = new ConcurrentHashMap<>();
-        return new PrimitiveMapImpl(syncMap);
+        return new PrimitiveMapImpl(new ConcurrentHashMap<>());
     }
 
     private final Map<String, PrimitiveElement> internalMap;
@@ -19,8 +18,8 @@ public final class PrimitiveMapImpl extends AbstractPrimitiveElement implements 
     }
 
     @Override
-    public PrimitiveMap setMetadata(Class<?> metadataClass, Object object) {
-        return (PrimitiveMap) super.setMetadata(metadataClass, object);
+    public PrimitiveMap addMetadata(Object object) {
+        return (PrimitiveMap) super.addMetadata(object);
     }
 
     @Override

@@ -20,14 +20,12 @@ public interface PrimitiveElement {
 
     /**
      * Sets a metadata value for this element, which can be retrieved with {@link #getMetadata(Class)}.
-     * The metadata class and data class must be the same.
+     * The metadata will be retrieved using a hard reference to the data's class.
      *
-     * @param metadataClass The data's class, which will be used as the key.
      * @param data The data to attach to this element.
-     * @throws IllegalArgumentException If any arguments are null (including the data argument) or if
-     *                                  metadataClass and data's class are not the same.
+     * @throws IllegalArgumentException If any arguments are null.
      */
-    PrimitiveElement setMetadata(Class<?> metadataClass, Object data);
+    PrimitiveElement addMetadata(Object data);
 
     /**
      * Gets this element as a map.

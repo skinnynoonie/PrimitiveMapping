@@ -27,16 +27,12 @@ public abstract class AbstractPrimitiveElement implements PrimitiveElement {
     }
 
     @Override
-    public PrimitiveElement setMetadata(Class<?> metadataClass, Object data) {
-        if (metadataClass == null) {
-            throw new IllegalArgumentException("metadataClass can not be null");
-        } else if (data == null) {
+    public PrimitiveElement addMetadata(Object data) {
+        if (data == null) {
             throw new IllegalArgumentException("data can not be null");
-        } else if (data.getClass() != metadataClass) {
-            throw new IllegalArgumentException("class of data and metadataClass are not the same");
         }
 
-        this.metadataMap.put(metadataClass, data);
+        this.metadataMap.put(data.getClass(), data);
         return this;
     }
 

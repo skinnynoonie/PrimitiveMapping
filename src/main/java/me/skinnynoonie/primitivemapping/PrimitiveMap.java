@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface PrimitiveMap extends PrimitiveElement {
 
     @Override
-    PrimitiveMap setMetadata(Class<?> metadataClass, Object data);
+    PrimitiveMap addMetadata(Object data);
 
     /**
      * Gets the element at with the key.
