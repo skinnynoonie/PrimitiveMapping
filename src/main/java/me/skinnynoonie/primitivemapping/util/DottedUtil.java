@@ -1,10 +1,12 @@
 package me.skinnynoonie.primitivemapping.util;
 
-import me.skinnynoonie.primitivemapping.*;
+import me.skinnynoonie.primitivemapping.PrimitiveElement;
+import me.skinnynoonie.primitivemapping.PrimitiveMap;
+import me.skinnynoonie.primitivemapping.impl.PrimitiveMapImpl;
+import me.skinnynoonie.primitivemapping.impl.PrimitiveNullImpl;
 
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 /**
@@ -35,8 +37,8 @@ public final class DottedUtil {
 
         for (String node : Arrays.copyOfRange(pathNodes, 0, pathNodes.length - 1)) {
             PrimitiveElement element = parentMap.get(node).orElse(null);
-            if (element != null && element.isMap()) {
-                parentMap = element.asMap();
+            if (element instanceof PrimitiveMap) {
+                parentMap = (PrimitiveMap) element;
                 continue;
             }
 
@@ -51,7 +53,7 @@ public final class DottedUtil {
      * Sets an element at the path.
      * If a map exists in the middle of the path, the map will be kept.
      * If any keys overlap this operation, then this operation will overwrite those keys.
-     * If the value is {@code null}, then it will be replaced with a {@link PrimitiveNull}.
+     * If the value is {@code null}, then it will be replaced with a {@link PrimitiveNullImpl}.
      *
      * @param map The map to set.
      * @param path The path to use.
@@ -66,7 +68,7 @@ public final class DottedUtil {
             throw new IllegalArgumentException("path can not be null");
         }
         if (value == null) {
-            value = PrimitiveNull.create();
+            value = PrimitiveNullImpl.create();
         }
 
         String[] pathNodes = path.split(Pattern.quote("."));
@@ -74,8 +76,8 @@ public final class DottedUtil {
 
         for (String node : Arrays.copyOfRange(pathNodes, 0, pathNodes.length - 1)) {
             PrimitiveElement element = parentMap.get(node).orElse(null);
-            if (element != null && element.isMap()) {
-                parentMap = element.asMap();
+            if (element instanceof PrimitiveMap) {
+                parentMap = (PrimitiveMap) element;
                 continue;
             }
 
@@ -85,54 +87,6 @@ public final class DottedUtil {
         }
 
         parentMap.put(pathNodes[pathNodes.length - 1], value);
-    }
-
-    /**
-     * Gets the element and casts the element if possible.
-     * If the element at the end of the path is not of the elementClass, then null will be returned.
-     */
-    public static <T extends PrimitiveElement> Optional<T> getAs(PrimitiveMap map, String path, Class<T> elementClass) {
-        return get(map, path).filter(elementClass::isInstance).map(elementClass::cast);
-    }
-
-    public static Optional<String> getString(PrimitiveMap map, String path) {
-        return getAs(map, path, PrimitiveString.class).map(PrimitiveString::asString);
-    }
-
-    public static Optional<Boolean> getBoolean(PrimitiveMap map, String path) {
-        return getAs(map, path, PrimitiveBoolean.class).map(PrimitiveElement::asBoolean);
-    }
-
-    public static Optional<Byte> getByte(PrimitiveMap map, String path) {
-        return getAs(map, path, PrimitiveNumber.class).flatMap(element -> emptyIfFail(element::asByte));
-    }
-
-    public static Optional<Short> getShort(PrimitiveMap map, String path) {
-        return getAs(map, path, PrimitiveNumber.class).flatMap(element -> emptyIfFail(element::asShort));
-    }
-
-    public static Optional<Integer> getInt(PrimitiveMap map, String path) {
-        return getAs(map, path, PrimitiveNumber.class).flatMap(element -> emptyIfFail(element::asInt));
-    }
-
-    public static Optional<Long> getLong(PrimitiveMap map, String path) {
-        return getAs(map, path, PrimitiveNumber.class).flatMap(element -> emptyIfFail(element::asLong));
-    }
-
-    public static Optional<Float> getFloat(PrimitiveMap map, String path) {
-        return getAs(map, path, PrimitiveNumber.class).flatMap(element -> emptyIfFail(element::asFloat));
-    }
-
-    public static Optional<Double> getDouble(PrimitiveMap map, String path) {
-        return getAs(map, path, PrimitiveNumber.class).flatMap(element -> emptyIfFail(element::asDouble));
-    }
-
-    private static <T> Optional<T> emptyIfFail(Supplier<T> runnable) {
-        try {
-            return Optional.of(runnable.get());
-        } catch (Exception e) {
-            return Optional.empty();
-        }
     }
 
     private DottedUtil() {

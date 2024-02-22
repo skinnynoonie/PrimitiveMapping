@@ -1,4 +1,7 @@
-package me.skinnynoonie.primitivemapping;
+package me.skinnynoonie.primitivemapping.impl;
+
+import me.skinnynoonie.primitivemapping.PrimitiveElement;
+import me.skinnynoonie.primitivemapping.PrimitiveMap;
 
 import java.util.Collection;
 import java.util.Map;
@@ -7,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public final class PrimitiveMapImpl extends AbstractPrimitiveElement implements PrimitiveMap {
 
-    public static PrimitiveMap createSynchronized() {
+    public static PrimitiveMapImpl createSynchronized() {
         return new PrimitiveMapImpl(new ConcurrentHashMap<>());
     }
 
@@ -20,16 +23,6 @@ public final class PrimitiveMapImpl extends AbstractPrimitiveElement implements 
     @Override
     public PrimitiveMap addMetadata(Object object) {
         return (PrimitiveMap) super.addMetadata(object);
-    }
-
-    @Override
-    public PrimitiveMap asMap() {
-        return this;
-    }
-
-    @Override
-    public boolean isMap() {
-        return true;
     }
 
     @Override
@@ -47,7 +40,7 @@ public final class PrimitiveMapImpl extends AbstractPrimitiveElement implements 
     }
 
     @Override
-    public PrimitiveMap put(String key, PrimitiveElement value) {
+    public PrimitiveMapImpl put(String key, PrimitiveElement value) {
         if (key == null) {
             throw new IllegalArgumentException("key can not be null");
         }
@@ -61,7 +54,7 @@ public final class PrimitiveMapImpl extends AbstractPrimitiveElement implements 
     }
 
     @Override
-    public PrimitiveMap delete(String key) {
+    public PrimitiveMapImpl delete(String key) {
         if (key == null) {
             throw new IllegalArgumentException("key can not be null");
         }

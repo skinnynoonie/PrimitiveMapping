@@ -1,4 +1,7 @@
-package me.skinnynoonie.primitivemapping;
+package me.skinnynoonie.primitivemapping.impl;
+
+import me.skinnynoonie.primitivemapping.PrimitiveElement;
+import me.skinnynoonie.primitivemapping.PrimitiveList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,7 +10,7 @@ import java.util.List;
 
 public final class PrimitiveListImpl extends AbstractPrimitiveElement implements PrimitiveList {
 
-    public static PrimitiveList createSynchronized() {
+    public static PrimitiveListImpl createSynchronized() {
         List<PrimitiveElement> syncList = Collections.synchronizedList(new ArrayList<>());
         return new PrimitiveListImpl(syncList);
     }
@@ -24,16 +27,6 @@ public final class PrimitiveListImpl extends AbstractPrimitiveElement implements
     }
 
     @Override
-    public PrimitiveList asList() {
-        return this;
-    }
-
-    @Override
-    public boolean isList() {
-        return true;
-    }
-
-    @Override
     public PrimitiveElement get(int index) {
         return this.internalList.get(index);
     }
@@ -41,7 +34,7 @@ public final class PrimitiveListImpl extends AbstractPrimitiveElement implements
     @Override
     public PrimitiveList add(PrimitiveElement element) {
         if (element == null) {
-            throw new IllegalArgumentException("element can not be null, use PrimitiveNull instead");
+            throw new IllegalArgumentException("element can not be null, use PrimitiveNullImpl instead");
         }
 
         this.internalList.add(element);
@@ -51,7 +44,7 @@ public final class PrimitiveListImpl extends AbstractPrimitiveElement implements
     @Override
     public void remove(PrimitiveElement element) {
         if (element == null) {
-            throw new IllegalArgumentException("element can not be null, use PrimitiveNull instead");
+            throw new IllegalArgumentException("element can not be null, use PrimitiveNullImpl instead");
         }
 
         this.internalList.remove(element);
@@ -60,7 +53,7 @@ public final class PrimitiveListImpl extends AbstractPrimitiveElement implements
     @Override
     public boolean contains(PrimitiveElement element) {
         if (element == null) {
-            throw new IllegalArgumentException("element can not be null, use PrimitiveNull instead");
+            throw new IllegalArgumentException("element can not be null, use PrimitiveNullImpl instead");
         }
 
         return this.internalList.contains(element);
