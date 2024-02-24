@@ -1,55 +1,64 @@
 package me.skinnynoonie.primitivemapping;
 
-/**
- * A representation of a list that can hold any primitive element.
- * There should be no {@code null} values, but instead a null representation.
- * This list is synchronized.
- */
-public interface PrimitiveList extends PrimitiveElement, Iterable<PrimitiveElement> {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
+public final class PrimitiveList extends AbstractPrimitiveElement<PrimitiveList> implements Iterable<PrimitiveElement> {
+
+    public static PrimitiveList createSynchronized() {
+        List<PrimitiveElement> syncList = Collections.synchronizedList(new ArrayList<>());
+        return new PrimitiveList(syncList);
+    }
+
+    private final List<PrimitiveElement> internalList;
+
+    private PrimitiveList(List<PrimitiveElement> internalList) {
+        this.internalList = internalList;
+    }
+
+    public PrimitiveElement get(int index) {
+        return this.internalList.get(index);
+    }
+
+    public PrimitiveList add(PrimitiveElement element) {
+        if (element == null) {
+            throw new IllegalArgumentException("element can not be null, use PrimitiveNull instead");
+        }
+
+        this.internalList.add(element);
+        return this;
+    }
+
+    public boolean contains(PrimitiveElement element) {
+        if (element == null) {
+            throw new IllegalArgumentException("element can not be null, use PrimitiveNull instead");
+        }
+
+        return this.internalList.contains(element);
+    }
+
+    public int size() {
+        return this.internalList.size();
+    }
+
+    public void remove(PrimitiveElement element) {
+        if (element == null) {
+            throw new IllegalArgumentException("element can not be null, use PrimitiveNull instead");
+        }
+
+        this.internalList.remove(element);
+    }
 
     @Override
-    PrimitiveList addMetadata(Object data);
+    public Iterator<PrimitiveElement> iterator() {
+        return this.internalList.iterator();
+    }
 
-    /**
-     * Gets the element at the specified index (starts from 0).
-     *
-     * @param index The index of the element.
-     * @return The element at the index.
-     * @throws IndexOutOfBoundsException If the index is less than 0 or larger than {@link #size()} - 1.
-     */
-    PrimitiveElement get(int index);
-
-    /**
-     * Adds an element to the end of this list.
-     *
-     * @param element The element to add.
-     * @return This list.
-     * @throws IllegalArgumentException If any arguments are null.
-     */
-    PrimitiveList add(PrimitiveElement element);
-
-    /**
-     * Removes the first instance of the element in this list.
-     *
-     * @param element The element to remove from this list.
-     * @throws IllegalArgumentException If any arguments are null.
-     */
-    void remove(PrimitiveElement element);
-
-    /**
-     * Checks if this list contains the element.
-     *
-     * @param element Check if this element is located in this list.
-     * @return true if the element is in this list, otherwise false.
-     * @throws IllegalArgumentException If any arguments are null.
-     */
-    boolean contains(PrimitiveElement element);
-
-    /**
-     * Returns the size of all PrimitiveElements in this list.
-     *
-     * @return the size of this list.
-     */
-    int size();
+    @Override
+    public String toString() {
+        return this.internalList.toString();
+    }
 
 }

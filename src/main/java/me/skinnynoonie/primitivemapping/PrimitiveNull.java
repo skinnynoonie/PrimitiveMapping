@@ -1,4 +1,17 @@
 package me.skinnynoonie.primitivemapping;
 
-public interface PrimitiveNull extends PrimitiveElement {
+public final class PrimitiveNull extends AbstractPrimitiveElement<PrimitiveNull> {
+
+    public static PrimitiveNull create() {
+        return new PrimitiveNull();
+    }
+
+    private PrimitiveNull() {
+    }
+
+    @Override
+    public String toString() {
+        return "null";
+    }
+
 }

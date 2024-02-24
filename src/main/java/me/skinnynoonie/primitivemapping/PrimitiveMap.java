@@ -1,53 +1,65 @@
 package me.skinnynoonie.primitivemapping;
 
 import java.util.Collection;
-import java.util.Optional;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * A map that has no null keys and is synchronized.
- */
-public interface PrimitiveMap extends PrimitiveElement {
+public final class PrimitiveMap extends AbstractPrimitiveElement<PrimitiveMap> {
+
+    public static PrimitiveMap createSynchronized() {
+        return new PrimitiveMap(new ConcurrentHashMap<>());
+    }
+
+    private final Map<String, PrimitiveElement> internalMap;
+
+    private PrimitiveMap(Map<String, PrimitiveElement> internalMap) {
+        this.internalMap = internalMap;
+    }
+
+    public PrimitiveElement get(String key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key can not be null");
+        }
+
+        return this.internalMap.get(key);
+    }
+
+    public Collection<String> keySet() {
+        return this.internalMap.keySet();
+    }
+
+    public PrimitiveMap put(String key, PrimitiveElement value) {
+        if (key == null) {
+            throw new IllegalArgumentException("key can not be null");
+        }
+
+        if (value == null) {
+            throw new IllegalArgumentException("value can not be null");
+        }
+
+        this.internalMap.put(key, value);
+        return this;
+    }
+
+    public PrimitiveMap delete(String key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key can not be null");
+        }
+
+        this.internalMap.remove(key);
+        return this;
+    }
 
     @Override
-    PrimitiveMap addMetadata(Object data);
-
-    /**
-     * Gets the element at with the key.
-     * If the key does not exist, an empty Optional will be returned.
-     * If the key does exist but the value is null (should be a null representation),
-     * a null representation will be returned in an Optional instead.
-     *
-     * @param key The key of the value to get.
-     * @return {@link Optional#empty()} if the entry does not exist, otherwise an Optional with either a null
-     *         representation, or the element.
-     * @throws IllegalArgumentException If any arguments are null.
-     */
-    Optional<PrimitiveElement> get(String key);
-
-    /**
-     * Gets all the keys associated with this map.
-     *
-     * @return The keys in a collection.
-     */
-    Collection<String> keySet();
-
-    /**
-     * Adds a value to this map.
-     *
-     * @param key The key of used to access the value.
-     * @param value The value to add to the map.
-     * @return This map.
-     * @throws IllegalArgumentException If any arguments are null.
-     */
-    PrimitiveMap put(String key, PrimitiveElement value);
-
-    /**
-     * Deletes a key from this map.
-     *
-     * @param key The key to delete from the map.
-     * @return This map.
-     * @throws IllegalArgumentException If any arguments are null.
-     */
-    PrimitiveMap delete(String key);
+    public String toString() {
+        StringBuilder sb = new StringBuilder("{");
+        for (String key : this.internalMap.keySet()) {
+            sb.append("\"").append(key).append("\": ").append(this.internalMap.get(key)).append(", ");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append("}");
+        return sb.toString();
+    }
 
 }
