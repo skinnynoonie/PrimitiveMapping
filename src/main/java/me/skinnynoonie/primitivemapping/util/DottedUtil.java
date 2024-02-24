@@ -77,6 +77,7 @@ public final class DottedUtil {
         String[] nodesExcludingLastElement = Arrays.copyOfRange(pathNodes, 0, pathNodes.length - 1);
         for (String node : nodesExcludingLastElement) {
             PrimitiveElement element = parentMap.get(node);
+
             if (element != null && element.isMap()) {
                 parentMap = element.asMap();
                 continue;
@@ -104,6 +105,7 @@ public final class DottedUtil {
 
         for (String node : Arrays.copyOfRange(pathNodes, 0, pathNodes.length - 1)) {
             PrimitiveElement element = parentMap.get(node);
+
             if (element != null && element.isMap()) {
                 parentMap = element.asMap();
                 continue;

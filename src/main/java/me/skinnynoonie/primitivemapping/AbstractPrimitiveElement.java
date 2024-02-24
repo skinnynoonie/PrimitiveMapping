@@ -22,7 +22,6 @@ abstract class AbstractPrimitiveElement<T extends PrimitiveElement> implements P
         if (metadataClass == null) {
             throw new IllegalArgumentException("metadataClass can not be null");
         }
-
         return (M) this.metadataMap.get(metadataClass);
     }
 
@@ -37,7 +36,6 @@ abstract class AbstractPrimitiveElement<T extends PrimitiveElement> implements P
         if (data == null) {
             throw new IllegalArgumentException("data can not be null");
         }
-
         this.metadataMap.put(data.getClass(), data);
         return (T) this;
     }

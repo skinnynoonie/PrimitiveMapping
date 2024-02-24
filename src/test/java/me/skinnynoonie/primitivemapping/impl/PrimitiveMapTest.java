@@ -42,21 +42,24 @@ class PrimitiveMapTest {
     }
 
     @Test
-    void get_keySet_putWorksAndReturnsItself_deleteWorksAndReturnsItself() {
+    void get_keySet_entrySet_putWorksAndReturnsItself_deleteWorksAndReturnsItself() {
         PrimitiveMap map = PrimitiveMap.createSynchronized();
         PrimitiveMap randData = PrimitiveMap.createSynchronized();
 
         assertEquals(0, map.entrySet().size());
+        assertEquals(0, map.keySet().size());
 
         assertSame(map.put("key", randData), map);
         assertSame(map.get("key"), randData);
 
         assertEquals(1, map.entrySet().size());
+        assertEquals(1, map.keySet().size());
 
         assertEquals("key", map.entrySet().iterator().next().getKey().value());
 
         assertSame(map.delete("key"), map);
         assertEquals(0, map.entrySet().size());
+        assertEquals(0, map.keySet().size());
         assertNotSame(map.get("key"), randData);
     }
 

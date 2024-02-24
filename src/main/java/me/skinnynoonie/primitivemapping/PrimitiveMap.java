@@ -16,26 +16,22 @@ public final class PrimitiveMap extends AbstractPrimitiveElement<PrimitiveMap> i
     }
 
     public PrimitiveElement get(String key) {
+        return this.get(PrimitiveString.ofOrElse(key, null));
+    }
+
+    public PrimitiveElement get(PrimitiveString key) {
         if (key == null) {
             throw new IllegalArgumentException("key can not be null");
         }
-
-        return this.internalMap.get(PrimitiveString.of(key));
-    }
-
-    public Set<Map.Entry<PrimitiveString, PrimitiveElement>> entrySet() {
-        return this.internalMap.entrySet();
+        return this.internalMap.get(key);
     }
 
     public PrimitiveMap put(String key, PrimitiveElement value) {
         if (key == null) {
             throw new IllegalArgumentException("key can not be null");
-        }
-
-        if (value == null) {
+        } else if (value == null) {
             throw new IllegalArgumentException("value can not be null");
         }
-
         this.internalMap.put(PrimitiveString.of(key), value);
         return this;
     }
@@ -44,9 +40,16 @@ public final class PrimitiveMap extends AbstractPrimitiveElement<PrimitiveMap> i
         if (key == null) {
             throw new IllegalArgumentException("key can not be null");
         }
-
         this.internalMap.remove(PrimitiveString.of(key));
         return this;
+    }
+
+    public Set<Map.Entry<PrimitiveString, PrimitiveElement>> entrySet() {
+        return this.internalMap.entrySet();
+    }
+
+    public Collection<PrimitiveString> keySet() {
+        return this.internalMap.keySet();
     }
 
     @Override

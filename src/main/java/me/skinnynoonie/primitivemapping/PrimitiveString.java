@@ -16,7 +16,6 @@ public final class PrimitiveString extends AbstractPrimitiveElement<PrimitiveStr
         if (string == null) {
             throw new IllegalArgumentException("string can not be null");
         }
-
         this.string = string;
     }
 
@@ -33,9 +32,7 @@ public final class PrimitiveString extends AbstractPrimitiveElement<PrimitiveStr
     public boolean equals(Object other) {
         if (this == other) {
             return true;
-        }
-
-        if (!(other instanceof PrimitiveString)) {
+        } else if (!(other instanceof PrimitiveString)) {
             return false;
         }
 

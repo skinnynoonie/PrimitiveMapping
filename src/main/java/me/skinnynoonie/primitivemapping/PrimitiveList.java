@@ -26,7 +26,6 @@ public final class PrimitiveList extends AbstractPrimitiveElement<PrimitiveList>
         if (element == null) {
             throw new IllegalArgumentException("element can not be null, use PrimitiveNull instead");
         }
-
         this.internalList.add(element);
         return this;
     }
@@ -35,7 +34,6 @@ public final class PrimitiveList extends AbstractPrimitiveElement<PrimitiveList>
         if (element == null) {
             throw new IllegalArgumentException("element can not be null, use PrimitiveNull instead");
         }
-
         return this.internalList.contains(element);
     }
 
@@ -47,7 +45,6 @@ public final class PrimitiveList extends AbstractPrimitiveElement<PrimitiveList>
         if (element == null) {
             throw new IllegalArgumentException("element can not be null, use PrimitiveNull instead");
         }
-
         this.internalList.remove(element);
     }
 
