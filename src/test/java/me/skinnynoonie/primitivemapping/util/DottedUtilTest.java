@@ -1,37 +1,45 @@
 package me.skinnynoonie.primitivemapping.util;
 
-import me.skinnynoonie.primitivemapping.PrimitiveBoolean;
-import me.skinnynoonie.primitivemapping.PrimitiveMap;
-import me.skinnynoonie.primitivemapping.PrimitiveNull;
-import me.skinnynoonie.primitivemapping.PrimitiveNumber;
-import me.skinnynoonie.primitivemapping.PrimitiveString;
-import me.skinnynoonie.primitivemapping.PrimitiveList;
+import me.skinnynoonie.primitivemapping.*;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DottedUtilTest {
 
-    @Test
-    @SuppressWarnings("ConstantConditions")
-    void get_and_set_bothWork() {
-        PrimitiveMap map = PrimitiveMap.createSynchronized()
-                .put("hi", PrimitiveBoolean.ofTrue())
-                .put("yo", PrimitiveNull.create())
-                .put("lmfao", PrimitiveNumber.ofInt(1))
-                .put("obj", PrimitiveMap.createSynchronized()
-                        .put("nestedList", PrimitiveList.createSynchronized()
-                                .add(PrimitiveNumber.ofDouble(5.0))
-                                .add(PrimitiveMap.createSynchronized()
-                                        .put("ONE_MORE_NESTED_LIST", PrimitiveList.createSynchronized()
-                                                .add(PrimitiveNumber.ofDouble(555555555555.0))
-                                                .add(PrimitiveString.of("Hi"))
-                                        )
-                                        .put("bool", PrimitiveBoolean.of(false))
-                                )
-                        )
-                );
+    PrimitiveMap map = PrimitiveMap.createSynchronized()
+            .put("hi", PrimitiveBoolean.ofTrue())
+            .put("yo", PrimitiveNull.create())
+            .put("lmfao", PrimitiveNumber.ofInt(1))
+            .put("obj", PrimitiveMap.createSynchronized()
+                    .put("nestedList", PrimitiveList.createSynchronized()
+                            .add(PrimitiveNumber.ofDouble(5.0))
+                            .add(PrimitiveMap.createSynchronized()
+                                    .put("ONE_MORE_NESTED_LIST", PrimitiveList.createSynchronized()
+                                            .add(PrimitiveNumber.ofDouble(555555555555.0))
+                                            .add(PrimitiveString.of("Hi"))
+                                    )
+                                    .put("bool", PrimitiveBoolean.of(false))
+                            )
+                    )
+            )
+            .put("bool", PrimitiveBoolean.ofTrue())
+            .put("byte", PrimitiveNumber.ofByte((byte) 1))
+            .put("short", PrimitiveNumber.ofShort((short) 1))
+            .put("int", PrimitiveNumber.ofInt(1))
+            .put("long", PrimitiveNumber.ofLong(1L))
+            .put("float", PrimitiveNumber.ofFloat(1.0f))
+            .put("double", PrimitiveNumber.ofDouble(Double.MAX_VALUE))
+            .put("str", PrimitiveString.of("hi"));
 
+    @Test
+    @Order(1)
+    @SuppressWarnings("ConstantConditions")
+    void get_alsoTestListAndMap() {
         assertTrue(DottedUtil.get(map, "hi").asBoolean().value());
         assertTrue(DottedUtil.get(map, "yo").isNull());
         assertEquals(1, DottedUtil.get(map, "lmfao").asNumber().asInt());
@@ -39,12 +47,63 @@ class DottedUtilTest {
         assertTrue(DottedUtil.get(map, "obj").isMap());
         assertEquals(2, DottedUtil.get(map, "obj.nestedList").asList().size());
         assertEquals(2, DottedUtil.get(map, "obj.nestedList").asList().get(1).asMap().get("ONE_MORE_NESTED_LIST").asList().size());
+    }
 
+    @Test
+    @Order(2)
+    @SuppressWarnings("ConstantConditions")
+    void set() {
         DottedUtil.set(map, "hi", PrimitiveBoolean.ofFalse());
         assertFalse(DottedUtil.get(map, "hi").asBoolean().value());
 
         DottedUtil.set(map, "obj.nestedList", PrimitiveNull.create());
         assertTrue(DottedUtil.get(map, "obj.nestedList").isNull());
+    }
+
+    @Test
+    void getString() {
+        assertEquals(DottedUtil.getString(map, "str").orElse(null), "hi");
+    }
+
+    @Test
+    void getByte() {
+        assertEquals((byte) 1, DottedUtil.getByte(map, "byte").orElse((byte) 100));
+        assertEquals((byte) 100, DottedUtil.getByte(map, "double").orElse((byte) 100));
+    }
+
+    @Test
+    void getShort() {
+        assertEquals((short) 1, DottedUtil.getShort(map, "short").orElse((short) 100));
+        assertEquals((short) 100, DottedUtil.getShort(map, "double").orElse((short) 100));
+    }
+
+    @Test
+    void getInt() {
+        assertEquals(1, DottedUtil.getInt(map, "int").orElse(100));
+        assertEquals(100, DottedUtil.getInt(map, "double").orElse(100));
+    }
+
+    @Test
+    void getLong() {
+        assertEquals(1L, DottedUtil.getLong(map, "long").orElse(100L));
+        assertEquals(100L, DottedUtil.getLong(map, "double").orElse(100L));
+    }
+
+    @Test
+    void getFloat() {
+        assertEquals(1.0f, DottedUtil.getFloat(map, "float").orElse(100.0f));
+        assertEquals(100.0f, DottedUtil.getFloat(map, "double").orElse(100.0f));
+    }
+
+    @Test
+    void getDouble() {
+        assertEquals(Double.MAX_VALUE, DottedUtil.getDouble(map, "double").orElse(100.0));
+    }
+
+    @Test
+    void getBoolean() {
+        assertTrue(DottedUtil.getBoolean(map, "bool").orElse(false));
+        assertFalse(DottedUtil.getBoolean(map, "str").orElse(false));
     }
 
 }
