@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public final class PrimitiveList extends AbstractPrimitiveElement<PrimitiveList> implements Iterable<PrimitiveElement> {
+public final class PrimitiveList extends AbstractPrimitiveElement<PrimitiveList> implements PrimitiveElement, Iterable<PrimitiveElement> {
 
     public static PrimitiveList createSynchronized() {
         List<PrimitiveElement> syncList = Collections.synchronizedList(new ArrayList<>());

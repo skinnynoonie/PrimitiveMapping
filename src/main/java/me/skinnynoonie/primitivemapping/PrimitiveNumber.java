@@ -1,6 +1,6 @@
 package me.skinnynoonie.primitivemapping;
 
-public final class PrimitiveNumber extends AbstractPrimitiveElement<PrimitiveNumber> {
+public final class PrimitiveNumber extends AbstractPrimitiveElement<PrimitiveNumber> implements PrimitiveElement {
 
     public static PrimitiveNumber parseString(String str) {
         return new PrimitiveNumber(Double.parseDouble(str));

@@ -14,17 +14,13 @@ class DottedUtilTest {
     PrimitiveMap map = PrimitiveMap.createSynchronized()
             .put("hi", PrimitiveBoolean.ofTrue())
             .put("yo", PrimitiveNull.create())
-            .put("lmfao", PrimitiveNumber.ofInt(1))
+            .put("someNumber", PrimitiveNumber.ofInt(1))
             .put("obj", PrimitiveMap.createSynchronized()
                     .put("nestedList", PrimitiveList.createSynchronized()
                             .add(PrimitiveNumber.ofDouble(5.0))
-                            .add(PrimitiveMap.createSynchronized()
-                                    .put("ONE_MORE_NESTED_LIST", PrimitiveList.createSynchronized()
-                                            .add(PrimitiveNumber.ofDouble(555555555555.0))
-                                            .add(PrimitiveString.of("Hi"))
-                                    )
-                                    .put("bool", PrimitiveBoolean.of(false))
-                            )
+                            .add(PrimitiveNull.create())
+                    ).put("nestedMap", PrimitiveMap.createSynchronized()
+                            .put("nestedBoolean", PrimitiveBoolean.ofTrue())
                     )
             )
             .put("bool", PrimitiveBoolean.ofTrue())
@@ -39,18 +35,26 @@ class DottedUtilTest {
     @Test
     @Order(1)
     @SuppressWarnings("ConstantConditions")
-    void get_alsoTestListAndMap() {
+    void get() {
         assertTrue(DottedUtil.get(map, "hi").asBoolean().value());
         assertTrue(DottedUtil.get(map, "yo").isNull());
-        assertEquals(1, DottedUtil.get(map, "lmfao").asNumber().asInt());
+        assertEquals(1, DottedUtil.get(map, "someNumber").asNumber().asInt());
 
         assertTrue(DottedUtil.get(map, "obj").isMap());
         assertEquals(2, DottedUtil.get(map, "obj.nestedList").asList().size());
-        assertEquals(2, DottedUtil.get(map, "obj.nestedList").asList().get(1).asMap().get("ONE_MORE_NESTED_LIST").asList().size());
+        assertTrue(DottedUtil.get(map, "obj.nestedList").asList().get(1).isNull());
     }
 
     @Test
     @Order(2)
+    @SuppressWarnings("all")
+    void getMap_getList() {
+        assertEquals(2, DottedUtil.getList(map, "obj.nestedList").get().size());
+        assertTrue(DottedUtil.getMap(map, "obj.nestedMap").get().get("nestedBoolean").asBoolean().value());
+    }
+
+    @Test
+    @Order(3)
     @SuppressWarnings("ConstantConditions")
     void set() {
         DottedUtil.set(map, "hi", PrimitiveBoolean.ofFalse());

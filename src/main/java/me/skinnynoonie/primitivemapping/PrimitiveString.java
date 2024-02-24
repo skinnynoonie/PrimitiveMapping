@@ -1,6 +1,6 @@
 package me.skinnynoonie.primitivemapping;
 
-public final class PrimitiveString extends AbstractPrimitiveElement<PrimitiveString> {
+public final class PrimitiveString extends AbstractPrimitiveElement<PrimitiveString> implements PrimitiveElement {
 
     public static PrimitiveString of(String str) {
         return new PrimitiveString(str);
