@@ -46,17 +46,17 @@ class PrimitiveMapTest {
         PrimitiveMap map = PrimitiveMap.createSynchronized();
         PrimitiveMap randData = PrimitiveMap.createSynchronized();
 
-        assertEquals(0, map.keySet().size());
+        assertEquals(0, map.entrySet().size());
 
         assertSame(map.put("key", randData), map);
         assertSame(map.get("key"), randData);
 
-        assertEquals(1, map.keySet().size());
+        assertEquals(1, map.entrySet().size());
 
-        assertEquals("key", map.keySet().iterator().next());
+        assertEquals("key", map.entrySet().iterator().next().getKey().value());
 
         assertSame(map.delete("key"), map);
-        assertEquals(0, map.keySet().size());
+        assertEquals(0, map.entrySet().size());
         assertNotSame(map.get("key"), randData);
     }
 
