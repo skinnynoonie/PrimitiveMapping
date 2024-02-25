@@ -1,6 +1,8 @@
 package me.skinnynoonie.primitivemapping;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class PrimitiveMap extends AbstractPrimitiveElement<PrimitiveMap> implements PrimitiveElement {
