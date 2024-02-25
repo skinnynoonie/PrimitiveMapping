@@ -1,9 +1,17 @@
 package me.skinnynoonie.primitivemapping.impl;
 
+import me.skinnynoonie.primitivemapping.PrimitiveElement;
 import me.skinnynoonie.primitivemapping.PrimitiveMap;
+import me.skinnynoonie.primitivemapping.PrimitiveNull;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PrimitiveMapTest {
 
@@ -16,6 +24,22 @@ class PrimitiveMapTest {
         assertTrue(primitive.hasMetadata(Object.class));
         assertFalse(primitive.hasMetadata(String.class));
         assertSame(primitive.getMetadata(Object.class), randomData);
+    }
+
+    @Test
+    void putWithMetadataStoresMetadata_returnsItself() {
+        PrimitiveMap primitive = PrimitiveMap.createSynchronized();
+        Object randomData = new Object();
+
+        assertSame(primitive, primitive.putWithMetadata("null", PrimitiveNull.create(), randomData));
+
+        PrimitiveElement key = primitive.keySet().iterator().next();
+
+        assertSame(randomData, key.getMetadata(Object.class));
+        assertTrue(key.hasMetadata(Object.class));
+
+        assertFalse(key.hasMetadata(String.class));
+        assertNull(primitive.getMetadata(String.class));
     }
 
     @Test

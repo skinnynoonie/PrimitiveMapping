@@ -27,12 +27,22 @@ public final class PrimitiveMap extends AbstractPrimitiveElement<PrimitiveMap> i
     }
 
     public PrimitiveMap put(String key, PrimitiveElement value) {
+        return this.putWithMetadata(key, value, null);
+    }
+
+    public PrimitiveMap putWithMetadata(String key, PrimitiveElement value, Object metadata) {
         if (key == null) {
             throw new IllegalArgumentException("key can not be null");
         } else if (value == null) {
             throw new IllegalArgumentException("value can not be null");
         }
-        this.internalMap.put(PrimitiveString.of(key), value);
+
+        PrimitiveString primitiveKey = PrimitiveString.of(key);
+        if (metadata != null) {
+            primitiveKey.addMetadata(metadata);
+        }
+
+        this.internalMap.put(primitiveKey, value);
         return this;
     }
 
