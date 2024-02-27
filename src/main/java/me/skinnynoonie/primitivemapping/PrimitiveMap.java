@@ -48,6 +48,16 @@ public final class PrimitiveMap extends AbstractPrimitiveElement<PrimitiveMap> i
         return this;
     }
 
+    public PrimitiveMap put(PrimitiveString primitiveKey, PrimitiveElement value) {
+        if (primitiveKey == null) {
+            throw new IllegalArgumentException("primitiveKey can not be null");
+        } else if (value == null) {
+            throw new IllegalArgumentException("value can not be null");
+        }
+        this.internalMap.put(primitiveKey, value);
+        return this;
+    }
+
     public PrimitiveMap delete(String key) {
         if (key == null) {
             throw new IllegalArgumentException("key can not be null");
