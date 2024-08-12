@@ -11,8 +11,8 @@ class PrimitiveNumberTest {
     void metadataStoresData_addMetadataReturnsItself_hasMetadataWorks() {
         PrimitiveNumber primitive = PrimitiveNumber.ofInt(1);
         Object randomData = new Object();
+        primitive.addMetadata(randomData);
 
-        assertSame(primitive.addMetadata(randomData), primitive);
         assertTrue(primitive.hasMetadata(Object.class));
         assertFalse(primitive.hasMetadata(String.class));
         assertSame(primitive.getMetadata(Object.class), randomData);

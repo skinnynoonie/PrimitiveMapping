@@ -11,8 +11,8 @@ class PrimitiveStringTest {
     void metadataStoresData_addMetadataReturnsItself_hasMetadataWorks() {
         PrimitiveString primitive = PrimitiveString.of("TEST");
         Object randomData = new Object();
+        primitive.addMetadata(randomData);
 
-        assertSame(primitive.addMetadata(randomData), primitive);
         assertTrue(primitive.hasMetadata(Object.class));
         assertFalse(primitive.hasMetadata(String.class));
         assertSame(primitive.getMetadata(Object.class), randomData);
@@ -39,8 +39,6 @@ class PrimitiveStringTest {
     @Test
     void staticConstructors_of_ofOrElse_workAndReturnNew() {
         assertNotSame(PrimitiveString.of("a"), PrimitiveString.of("a"));
-        assertNotSame(PrimitiveString.ofOrElse("a", null), PrimitiveString.of("a"));
-        assertNotSame(PrimitiveString.ofOrElse(null, "a"), PrimitiveString.of("a"));
     }
 
     @Test

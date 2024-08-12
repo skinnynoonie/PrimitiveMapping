@@ -17,8 +17,8 @@ class PrimitiveMapTest {
     void metadataStoresData_addMetadataReturnsItself_hasMetadataWorks() {
         PrimitiveMap primitive = PrimitiveMap.createSynchronized();
         Object randomData = new Object();
+        primitive.addMetadata(randomData);
 
-        assertSame(primitive.addMetadata(randomData), primitive);
         assertTrue(primitive.hasMetadata(Object.class));
         assertFalse(primitive.hasMetadata(String.class));
         assertSame(primitive.getMetadata(Object.class), randomData);

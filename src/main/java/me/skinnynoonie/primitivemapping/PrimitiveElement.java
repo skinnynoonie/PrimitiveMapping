@@ -7,7 +7,7 @@ package me.skinnynoonie.primitivemapping;
 public interface PrimitiveElement extends MetadataHolder {
 
     @Override
-    PrimitiveElement addMetadata(Object data);
+    PrimitiveElement addMetadata(Object metadata);
 
     PrimitiveMap asMap();
 

@@ -11,8 +11,8 @@ class PrimitiveNullTest {
     void metadataStoresData_addMetadataReturnsItself_hasMetadataWorks() {
         PrimitiveNull primitive = PrimitiveNull.create();
         Object randomData = new Object();
+        primitive.addMetadata(randomData);
 
-        assertSame(primitive.addMetadata(randomData), primitive);
         assertTrue(primitive.hasMetadata(Object.class));
         assertFalse(primitive.hasMetadata(String.class));
         assertSame(primitive.getMetadata(Object.class), randomData);

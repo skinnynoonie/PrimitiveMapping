@@ -6,16 +6,9 @@ public final class PrimitiveString extends AbstractPrimitiveElement<PrimitiveStr
         return new PrimitiveString(str);
     }
 
-    public static PrimitiveString ofOrElse(String str, String fallback) {
-        return of(str == null ? fallback : str);
-    }
-
     private final String string;
 
     private PrimitiveString(String string) {
-        if (string == null) {
-            throw new IllegalArgumentException("string can not be null");
-        }
         this.string = string;
     }
 

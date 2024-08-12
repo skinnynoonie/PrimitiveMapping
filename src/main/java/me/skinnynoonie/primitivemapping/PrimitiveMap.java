@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-public final class PrimitiveMap extends AbstractPrimitiveElement<PrimitiveMap> implements PrimitiveElement {
+public final class PrimitiveMap extends AbstractPrimitiveElement<PrimitiveMap> {
 
     public static PrimitiveMap createSynchronized() {
         return new PrimitiveMap(new ConcurrentHashMap<>());
@@ -18,30 +18,23 @@ public final class PrimitiveMap extends AbstractPrimitiveElement<PrimitiveMap> i
     }
 
     public PrimitiveElement get(String key) {
-        return this.get(PrimitiveString.ofOrElse(key, null));
+        return this.get(PrimitiveString.of(key));
     }
 
     public PrimitiveElement get(PrimitiveString key) {
-        if (key == null) {
-            throw new IllegalArgumentException("key can not be null");
-        }
         return this.internalMap.get(key);
     }
 
     public PrimitiveMap put(String key, PrimitiveElement value) {
-        return this.putWithMetadata(key, value, null);
+        return this.putWithMetadata(key, value, (Object[]) null);
     }
 
-    public PrimitiveMap putWithMetadata(String key, PrimitiveElement value, Object metadata) {
-        if (key == null) {
-            throw new IllegalArgumentException("key can not be null");
-        } else if (value == null) {
-            throw new IllegalArgumentException("value can not be null");
-        }
-
+    public PrimitiveMap putWithMetadata(String key, PrimitiveElement value, Object... metadatas) {
         PrimitiveString primitiveKey = PrimitiveString.of(key);
-        if (metadata != null) {
-            primitiveKey.addMetadata(metadata);
+        if (metadatas != null) {
+            for (Object metadata : metadatas) {
+                primitiveKey.addMetadata(metadata);
+            }
         }
 
         this.internalMap.put(primitiveKey, value);
@@ -49,19 +42,11 @@ public final class PrimitiveMap extends AbstractPrimitiveElement<PrimitiveMap> i
     }
 
     public PrimitiveMap put(PrimitiveString primitiveKey, PrimitiveElement value) {
-        if (primitiveKey == null) {
-            throw new IllegalArgumentException("primitiveKey can not be null");
-        } else if (value == null) {
-            throw new IllegalArgumentException("value can not be null");
-        }
         this.internalMap.put(primitiveKey, value);
         return this;
     }
 
     public PrimitiveMap delete(String key) {
-        if (key == null) {
-            throw new IllegalArgumentException("key can not be null");
-        }
         this.internalMap.remove(PrimitiveString.of(key));
         return this;
     }

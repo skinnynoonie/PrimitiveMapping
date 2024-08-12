@@ -1,43 +1,8 @@
 package me.skinnynoonie.primitivemapping;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-// This class is tightly coupled to the primitive elements, so it is package-private.
-abstract class AbstractPrimitiveElement<T extends PrimitiveElement> implements PrimitiveElement {
-
-    private final Map<Class<?>, Object> metadataMap;
+public abstract class AbstractPrimitiveElement<T extends PrimitiveElement> extends AbstractMetadataHolder<T> implements PrimitiveElement {
 
     protected AbstractPrimitiveElement() {
-        this(new ConcurrentHashMap<>());
-    }
-
-    protected AbstractPrimitiveElement(Map<Class<?>, Object> internalMetadataMap) {
-        this.metadataMap = internalMetadataMap;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <M> M getMetadata(Class<M> metadataClass) {
-        if (metadataClass == null) {
-            throw new IllegalArgumentException("metadataClass can not be null");
-        }
-        return (M) this.metadataMap.get(metadataClass);
-    }
-
-    @Override
-    public boolean hasMetadata(Class<?> metadataClass) {
-        return this.metadataMap.containsKey(metadataClass);
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public T addMetadata(Object data) {
-        if (data == null) {
-            throw new IllegalArgumentException("data can not be null");
-        }
-        this.metadataMap.put(data.getClass(), data);
-        return (T) this;
     }
 
     @Override

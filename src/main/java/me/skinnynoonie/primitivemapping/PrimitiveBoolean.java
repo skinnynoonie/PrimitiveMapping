@@ -1,6 +1,6 @@
 package me.skinnynoonie.primitivemapping;
 
-public final class PrimitiveBoolean extends AbstractPrimitiveElement<PrimitiveBoolean> implements PrimitiveElement {
+public final class PrimitiveBoolean extends AbstractPrimitiveElement<PrimitiveBoolean> {
 
     public static PrimitiveBoolean of(boolean bool) {
         return new PrimitiveBoolean(bool);
@@ -14,19 +14,19 @@ public final class PrimitiveBoolean extends AbstractPrimitiveElement<PrimitiveBo
         return of(false);
     }
 
-    private final boolean value;
+    private final boolean bool;
 
-    private PrimitiveBoolean(boolean value) {
-        this.value = value;
+    private PrimitiveBoolean(boolean bool) {
+        this.bool = bool;
     }
 
     public boolean value() {
-        return this.value;
+        return this.bool;
     }
 
     @Override
     public String toString() {
-        return String.valueOf(this.value);
+        return String.valueOf(this.bool);
     }
 
 }
